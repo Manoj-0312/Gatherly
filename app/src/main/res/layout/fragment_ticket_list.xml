@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Empty State TextView -->
+    <TextView
+        android:id="@+id/emptyStateTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="No tickets available"
+        android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+        android:visibility="gone" />
+
+    <!-- RecyclerView to display the list of tickets -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/ticketsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:clipToPadding="false" />
+</LinearLayout>
