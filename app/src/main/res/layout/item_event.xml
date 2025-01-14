@@ -73,7 +73,7 @@
             android:layout_marginStart="8dp"
             android:text="View Details"
             android:textSize="14sp"
-            android:backgroundTint="@color/purple_500"
+            android:backgroundTint="@color/purple_200"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

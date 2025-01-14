@@ -29,6 +29,7 @@ class ProfileFragment : Fragment() {
     private val attendedEventsList = mutableListOf<Event>()
     private val organizedEventsList = mutableListOf<Event>()
     private val totalTicketsList = mutableListOf<Ticket>()
+    private var ticket_size = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -54,6 +55,7 @@ class ProfileFragment : Fragment() {
                     val user = snapshot.getValue(User_model::class.java)
                     if (user != null) {
                         displayUserDetails(user)
+                        ticket_size = user.tickets.size
                         fetchUserEvents(userId) // Fetch events after fetching user details
                     } else {
                         Toast.makeText(requireContext(), "User details not found.", Toast.LENGTH_SHORT).show()
@@ -167,7 +169,7 @@ class ProfileFragment : Fragment() {
             eventsOrganized.text = organizedEventsList.size.toString()
 
             // Update total tickets
-            totalTickets.text = totalTicketsList.size.toString()
+            totalTickets.text = ticket_size.toString()
         }
     }
 

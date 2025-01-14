@@ -4,7 +4,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:id="@+id/main"
     android:layout_height="match_parent"
     tools:context=".AddEvent"
     android:padding="16dp">
@@ -47,24 +46,22 @@
 
     <!-- Event Date -->
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
         android:id="@+id/eventDateInputLayout"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeColor="#1976D2"
-        app:hintTextColor="#1976D2"
-        android:hint="Event Date"
-        android:textColorHint="#00FFFFFF"
-        app:startIconDrawable="@drawable/ic_calendar"
-        app:startIconTint="#1976D2">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/eventDescriptionInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/eventDateEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Select a date"
+            android:hint="Event Date"
             android:inputType="none"
+            android:drawableStart="@drawable/ic_calendar"
+            android:drawableTint="#1976D2"
             android:textColor="#000000" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,10 +124,10 @@
         android:id="@+id/saveEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Event"
         android:layout_marginTop="24dp"
         app:layout_constraintTop_toBottomOf="@id/eventImageUrlInputLayout"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Save Event" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

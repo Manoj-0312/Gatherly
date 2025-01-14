@@ -1,6 +1,7 @@
 package com.example.eventmanagementapp.ui.explore
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -79,6 +80,8 @@ class ExploreFragment : Fragment() {
     }
 
     private fun setupSearchBar() {
+
+
         binding.searchResultsRecyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = ExploreEventAdapter(requireContext(), emptyList()) { event ->
@@ -88,6 +91,7 @@ class ExploreFragment : Fragment() {
         }
 
         binding.searchView.editText.addTextChangedListener { editable ->
+
             searchJob?.cancel()
             searchJob = lifecycleScope.launch {
                 delay(300) // Debounce typing
@@ -102,13 +106,14 @@ class ExploreFragment : Fragment() {
     }
 
     private fun searchEvents(query: String) {
-        val filteredEvents = allEvents.filter { event ->
+        val filteredEvents_ser = allEvents.filter { event ->
+
             event.title.contains(query, ignoreCase = true) ||
                     event.description.contains(query, ignoreCase = true) ||
                     event.location.contains(query, ignoreCase = true)
         }
-        updateRecyclerView(filteredEvents)
-        binding.searchProgressBar.isVisible = false
+        Log.d("manoj", "searchEvents: ${filteredEvents_ser.size}")
+        updateRecyclerView(filteredEvents_ser)
     }
 
     private fun setupCategoryChips() {

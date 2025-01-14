@@ -9,24 +9,28 @@ import com.example.eventmanagementapp.model.Event
 import com.squareup.picasso.Picasso
 
 class EventListAdapter(
-    private val events: List<Event>
+    private val events: List<Event>,
+    private val onViewDetailsClick: (Event) -> Unit // Listener for button click
 ) : RecyclerView.Adapter<EventListAdapter.EventViewHolder>() {
 
-    // ViewHolder class to hold individual event item views
     inner class EventViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(event: Event) {
             binding.apply {
-                // Set event data to the views in the item layout
                 eventTitle.text = event.title
                 eventDate.text = event.startDate
                 eventLocation.text = event.location
-                eventPrice.text = "$${event.ticketPrice}"
+                eventPrice.text = "₹${event.ticketPrice}"
 
-                // Load the image using Picasso
+                // Load image
                 Picasso.get()
-                    .load(event.imageUrl) // Load image URL
-                    .placeholder(android.R.drawable.progress_horizontal) // Placeholder while loading
+                    .load(event.imageUrl)
+                    .placeholder(android.R.drawable.progress_horizontal)
                     .into(eventImageView)
+
+                // Set click listener for the button
+                viewDetailsButton.setOnClickListener {
+                    onViewDetailsClick(event)
+                }
             }
         }
     }
@@ -37,8 +41,7 @@ class EventListAdapter(
     }
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
-        val event = events[position]
-        holder.bind(event)
+        holder.bind(events[position])
     }
 
     override fun getItemCount(): Int = events.size

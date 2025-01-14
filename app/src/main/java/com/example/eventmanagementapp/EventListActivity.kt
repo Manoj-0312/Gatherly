@@ -1,5 +1,6 @@
 package com.example.eventmanagementapp
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -33,7 +34,7 @@ class EventListActivity : AppCompatActivity() {
         // Set up RecyclerView
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
-        // Fetch events from Firebase based on the event type (attended or organized
+        // Fetch events from Firebase based on the event type (attended or organized)
         fetchEvents(eventType)
     }
 
@@ -46,6 +47,7 @@ class EventListActivity : AppCompatActivity() {
 
         val ticketsRef = FirebaseDatabase.getInstance().getReference("tickets")
 
+        // Fetch events from the database
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(eventSnapshot: DataSnapshot) {
                 eventsList.clear() // Clear previous data in the list
@@ -55,19 +57,20 @@ class EventListActivity : AppCompatActivity() {
                     for (event in eventSnapshot.children.mapNotNull { it.getValue(Event::class.java) }) {
                         if (event.createdBy == userId) {
                             eventsList.add(event)
-                            Log.d("manoj", "onDataChange:${event} ")
                         }
-                        // Update the adapter after filtering
-                        val adapter = EventListAdapter(eventsList)
-                        binding.recyclerView.adapter = adapter
                     }
+
+                    // Update the adapter after filtering
+                    val adapter = EventListAdapter(eventsList) { event ->
+                        // Handle the event item click (show event details)
+                        showUsersForEvent(event)
+                    }
+                    binding.recyclerView.adapter = adapter
                 } else if (eventType == "attended") {
                     // Fetch all tickets to filter attended events
-                    // user should have that ticket and also , icket shoiuld be completed, events should aslo contain thbe user under booked
                     ticketsRef.addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(ticketSnapshot: DataSnapshot) {
-                            val userCompletedTickets = ticketSnapshot.children.mapNotNull { it.getValue(
-                                Ticket::class.java) }
+                            val userCompletedTickets = ticketSnapshot.children.mapNotNull { it.getValue(Ticket::class.java) }
                                 .filter { it.status.lowercase() == "completed" && it.eventId != null }
 
                             // Get the list of event IDs for the user's completed tickets
@@ -81,7 +84,10 @@ class EventListActivity : AppCompatActivity() {
                             }
 
                             // Update the adapter after filtering
-                            val adapter = EventListAdapter(eventsList)
+                            val adapter = EventListAdapter(eventsList) { event ->
+                                // Handle the event item click (show event details)
+                                showUsersForEvent(event)
+                            }
                             binding.recyclerView.adapter = adapter
                         }
 
@@ -96,13 +102,16 @@ class EventListActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(
-                    this@EventListActivity,
-                    "Error fetching events: ${error.message}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(this@EventListActivity, "Error fetching events: ${error.message}", Toast.LENGTH_SHORT).show()
             }
         })
     }
 
+    // Method to show users for the event
+    private fun showUsersForEvent(event: Event) {
+        // Assuming you navigate to another activity to display event details and users
+        val intent = Intent(this, UserListActivity::class.java)
+        intent.putExtra("eventId", event.eventId) // Passing the event ID
+        startActivity(intent)
+    }
 }
