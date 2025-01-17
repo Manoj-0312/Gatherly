@@ -99,12 +99,6 @@
                 android:layout_marginTop="4dp" />
         </LinearLayout>
 
-        <ImageButton
-            android:id="@+id/buttonBookmark"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:src="@drawable/ic_favourite_border"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="12dp" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

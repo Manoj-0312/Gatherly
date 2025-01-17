@@ -10,7 +10,7 @@ import com.squareup.picasso.Picasso
 
 class EventListAdapter(
     private val events: List<Event>,
-    private val onViewDetailsClick: (Event) -> Unit // Listener for button click
+    private val onViewDetailsClick: (Event) -> Unit
 ) : RecyclerView.Adapter<EventListAdapter.EventViewHolder>() {
 
     inner class EventViewHolder(private val binding: ItemEventBinding) : RecyclerView.ViewHolder(binding.root) {

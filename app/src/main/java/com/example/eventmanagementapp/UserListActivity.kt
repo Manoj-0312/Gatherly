@@ -47,18 +47,13 @@ class UserListActivity : AppCompatActivity() {
         eventsRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(eventSnapshot: DataSnapshot) {
                 val event = eventSnapshot.getValue(Event::class.java)
-                Log.d("meg", "manoj: ${event}")
 
                 if (event != null) {
                     val userIds = event.bookedUsers
-
-
                     if (userIds.isNullOrEmpty()) {
                         Toast.makeText(this@UserListActivity, "No users found for this event.", Toast.LENGTH_SHORT).show()
                         return
                     }
-
-                    // Fetch user data for each userId in the bookedUsers list
                     fetchUserDetails(userIds)
                 } else {
                     Toast.makeText(this@UserListActivity, "Event not found.", Toast.LENGTH_SHORT).show()
@@ -72,26 +67,35 @@ class UserListActivity : AppCompatActivity() {
     }
 
     private fun fetchUserDetails(userIds: List<String>) {
-        // Retrieve user details from Firebase database
         val usersRef = FirebaseDatabase.getInstance().getReference("Users")
+        val usersList = mutableListOf<User_model>() // Initialize the list
+
         for (userId in userIds) {
-            database.child("Users").child(userId).addValueEventListener(object : ValueEventListener {
+            Log.d("manoj", "Fetching data for userID: $userId")
+
+            usersRef.child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val user = snapshot.getValue(User_model::class.java)
-                    Log.d("meg", "onDataChange: ${user}")
-
                     if (user != null) {
                         usersList.add(user)
+                        Log.d("meg", "User fetched: $user")
+                    } else {
+                        Log.d("meg", "User not found for userID: $userId")
                     }
-                    // Update the adapter once all users are fetched
-                    val adapter = UserListAdapter(usersList)
-                    binding.recyclerView.adapter = adapter
+
+                    // Update the adapter after fetching all users
+                    if (usersList.size == userIds.size) {
+                        val adapter = UserListAdapter(usersList)
+                        binding.recyclerView.adapter = adapter
+                    }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+                    Log.e("Error", "Error fetching user data: ${error.message}")
                     Toast.makeText(this@UserListActivity, "Error fetching user data: ${error.message}", Toast.LENGTH_SHORT).show()
                 }
             })
         }
     }
+
 }

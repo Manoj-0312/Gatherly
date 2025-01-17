@@ -75,6 +75,7 @@ class EventListActivity : AppCompatActivity() {
 
                             // Get the list of event IDs for the user's completed tickets
                             val userEventIds = userCompletedTickets.map { it.eventId }
+                            Log.d("man", "onDataChange: ${userEventIds}")
 
                             for (event in eventSnapshot.children.mapNotNull { it.getValue(Event::class.java) }) {
                                 // Add events attended by the user (with completed tickets)
