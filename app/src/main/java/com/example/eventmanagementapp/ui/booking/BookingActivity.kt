@@ -46,6 +46,16 @@ class BookingActivity : AppCompatActivity() {
         binding.mapLink.setOnClickListener {
             openMap(event?.mapUrl)
         }
+
+        // Handle share button click
+        binding.shareButton.setOnClickListener {
+            shareEventDetails()
+        }
+
+        // Handle back button click
+        binding.backButton.setOnClickListener {
+            onBackPressed() // Calls the default back navigation behavior
+        }
     }
 
     private fun displayEventDetails() {
@@ -138,4 +148,29 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
+    private fun shareEventDetails() {
+        event?.let { event ->
+            val shareText = """
+                Check out this event:
+                Title: ${event.title}
+                Location: ${event.location}
+                Date: ${event.startDate}
+                Time: ${event.startTime}
+                Duration: ${event.duration} hours
+                Price: ₹${event.ticketPrice}
+                Description: ${event.description}
+                Map: ${event.mapUrl}
+            """.trimIndent()
+
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_SUBJECT, "Event Details: ${event.title}")
+                putExtra(Intent.EXTRA_TEXT, shareText)
+            }
+
+            startActivity(Intent.createChooser(shareIntent, "Share Event Details"))
+        } ?: run {
+            Toast.makeText(this, "Event details not available to share", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

@@ -64,8 +64,13 @@ class AddEvent : AppCompatActivity() {
         val location = binding.eventLocationEditText.text.toString().trim()
         val price = binding.eventPriceEditText.text.toString().trim()
         val imageUrl = binding.eventImageUrlEditText.text.toString().trim()
+        val mapUrl = binding.eventMapUrlEditText.text.toString().trim() // New field for Map URL
+        val duration = binding.eventDurationEditText.text.toString().trim().toIntOrNull() // New field for duration
+        val participantsLimit = binding.eventParticipantsLimitEditText.text.toString().trim().toIntOrNull() // New field for participants limit
+        val category = binding.eventCategoryEditText.text.toString().trim()
 
         // Validate input fields
+
         if (title.isEmpty()) {
             Toast.makeText(this, "Event name is required", Toast.LENGTH_SHORT).show()
             return
@@ -90,6 +95,22 @@ class AddEvent : AppCompatActivity() {
             Toast.makeText(this, "Event image URL is required", Toast.LENGTH_SHORT).show()
             return
         }
+        if (mapUrl.isEmpty()) {
+            Toast.makeText(this, "Map URL is required", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (duration == null) {
+            Toast.makeText(this, "Duration is required", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (participantsLimit == null) {
+            Toast.makeText(this, "Participants limit is required", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if(category.isEmpty()){
+            Toast.makeText(this, "Event category is required", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         // Validate price input to ensure it's a valid number
         val priceValue = try {
@@ -112,9 +133,10 @@ class AddEvent : AppCompatActivity() {
             location = location,
             imageUrl = imageUrl,
             ticketPrice = priceValue,
-            participantLimit = 100,
-            duration = 2,
-            category = "music"
+            participantLimit = participantsLimit,
+            duration = duration,
+            category = category,
+            mapUrl = mapUrl
         )
 
         // Save the event to the Firebase Realtime Database

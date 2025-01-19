@@ -5,129 +5,198 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".AddEvent"
-    android:padding="16dp">
+    android:background="@color/background_light">
 
-    <!-- Event Name -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventNameInputLayout"
-        android:layout_width="0dp"
+    <!-- Event Header -->
+    <TextView
+        android:id="@+id/headerText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Add New Event"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="@color/purple_200"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventNameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Event Name"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <!-- Event Description -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventDescriptionInputLayout"
+    <!-- Event Details Group -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/eventDetailsCard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/eventNameInputLayout"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@id/headerText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventDescriptionEditText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Event Description"
-            android:inputType="textMultiLine"
-            android:maxLines="4" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <!-- Event Date -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventDateInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/eventDescriptionInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <!-- Event Name -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventNameInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Event Name">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventDateEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Event Date"
-            android:inputType="none"
-            android:drawableStart="@drawable/ic_calendar"
-            android:drawableTint="#1976D2"
-            android:textColor="#000000" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Event Description -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventDescriptionInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Event Description">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventDescriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Event Location -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventLocationInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/eventDateInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <!-- Event Date -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventDateInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Event Date">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventDateEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:drawableTint="@color/primary"
+                    android:textColor="@color/textPrimary" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventLocationEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Event Location"
-            android:inputType="text" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Event Location -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventLocationInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Event Location">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventLocationEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Ticket Price -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventPriceInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/eventLocationInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <!-- Ticket Price -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventPriceInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Ticket Price (₹)">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventPriceEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventPriceEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ticket Price (₹)"
-            android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Event Image URL -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventImageUrlInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Event Image URL">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventImageUrlEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Event Image URL -->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/eventImageUrlInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/eventPriceInputLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+            <!-- Map URL -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventMapUrlInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Map URL">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventMapUrlEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/eventImageUrlEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Event Image URL"
-            android:inputType="textUri" />
-    </com.google.android.material.textfield.TextInputLayout>
+            <!-- Duration in Minutes -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventDurationInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Duration (in minutes)">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventDurationEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Participants Limit -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventParticipantsLimitInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Participants Limit">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventParticipantsLimitEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/eventCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="Event Category (eg. Music, Fitness, Education)">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/eventCategoryEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textUri" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
     <!-- Save Event Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/saveEventButton"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/eventImageUrlInputLayout"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/eventDetailsCard"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Save Event" />
+        android:text="Save Event"
+        android:backgroundTint="@color/purple_200"
+        android:textColor="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
